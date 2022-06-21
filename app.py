@@ -1,22 +1,14 @@
-from pydrive.drive import GoogleDrive
-from pydrive.auth import GoogleAuth
-from nltk.corpus import stopwords
-from fileinput import filename
-from io import StringIO
-import json
-import streamlit as st
-import moviepy.editor as mp
-from pytube import YouTube
 import os
-import sys
 import time
-import requests
 from zipfile import ZipFile
+import json
 import nltk
-nltk.download('stopwords')
+import requests
+import streamlit as st
+from nltk.corpus import stopwords
+from pytube import YouTube
 
-gauth = GoogleAuth()
-drive = GoogleDrive(gauth)
+nltk.download('stopwords')
 
 st.markdown('# 📝 **Multi-Level deduplication**')
 bar = st.progress(0)
@@ -66,7 +58,7 @@ def transcribe_yt():
     # 4. Transcribe uploaded audio file
     endpoint = "https://api.assemblyai.com/v2/transcript"
 
-    json = {
+    json1 = {
         "audio_url": audio_url
     }
 
@@ -76,7 +68,7 @@ def transcribe_yt():
     }
 
     transcript_input_response = requests.post(
-        endpoint, json=json, headers=headers)
+        endpoint, json=json1, headers=headers)
 
     #st.info('4. Transcribing uploaded file')
     bar.progress(40)
@@ -150,7 +142,7 @@ def transcribe_upload(file):
 
     endpoint = "https://api.assemblyai.com/v2/transcript"
 
-    json = {
+    json1 = {
         "audio_url": audio_url
     }
 
@@ -162,7 +154,7 @@ def transcribe_upload(file):
     transcript_input_response = requests.post(
         endpoint,
         headers=headers,
-        json=json
+        json=json1
     )
 
     transcript_id = transcript_input_response.json()["id"]
@@ -183,10 +175,13 @@ def transcribe_upload(file):
     bar.progress(100)
 
     st.success(transcript_response.json()["text"])
-    st.success(str(transcript_response.json()[
-               "iab_categories_result"]["summary"]))
+    # st.success(str(transcript_response.json()["iab_categories_result"]["summary"]))
 
-    for items in transcript_response.json()["iab_categories_result"]["summary"]:
+    summary = transcript_response.json()["iab_categories_result"]["summary"]
+    print(summary)
+
+
+    for items in transcript_response.json()["iab_categories_result"]:
         print(items)
 
     text_file = filename.replace(".mp4", ".txt")
@@ -200,15 +195,15 @@ def transcribe_upload(file):
     transcript_txt.write(new_text)
     transcript_txt.close()
 
-    headers = {"Authorization": "ya29.a0ARrdaM8WNA_jT7Hykv0s_KBj1yuRTfVJFzMFQNN_NRBJJjGjCzLBDSQVjKeYvIHQczMi8T-HkwTYZnl2UJBMAvles6Vw30Ie2pYfaspdcGjlpVWDx1Oj2pzJKWBKCzu3Sa27vQpWTzscjdACM8yEsaGptgQ6"}
+    headers = {"Authorization": "Bearer ya29.a0ARrdaM8WNA_jT7Hykv0s_KBj1yuRTfVJFzMFQNN_NRBJJjGjCzLBDSQVjKeYvIHQczMi8T-HkwTYZnl2UJBMAvles6Vw30Ie2pYfaspdcGjlpVWDx1Oj2pzJKWBKCzu3Sa27vQpWTzscjdACM8yEsaGptgQ6"}
     para = {
-        "name": f"{filename}",
+        "name": filename,
         "parents": "16cZXDXhjKvHJFnRT-tmyQRFKZLM2xJVW"
     }
 
     files = {
-        'data': ('metadata', json.dumps(para_json), 'application/json; charset=UTF-8'),
-        'file': open(f"{filename}", "rb")
+        'data': ('metadata', json.dumps(para), 'application/json; charset=UTF-8'),
+        'file': open(filename, "rb")
     }
     r = requests.post(
         "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",

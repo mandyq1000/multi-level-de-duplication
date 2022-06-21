@@ -62,7 +62,7 @@ import requests
 
 endpoint = "https://api.assemblyai.com/v2/transcript"
 
-json = {
+json1 = {
   "audio_url": audio_url
 }
 
@@ -71,7 +71,7 @@ headers = {
     "content-type": "application/json"
 }
 
-transcript_input_response = requests.post(endpoint, json=json, headers=headers)
+transcript_input_response = requests.post(endpoint, json=json1, headers=headers)
 
 print('4. Transcribing uploaded file')
 
