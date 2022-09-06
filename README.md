@@ -1,10 +1,4 @@
-# transcriber-app
-
-# Watch the tutorial video
-
-[How to build your own Speech-to-Text Transcription App in Python using AssemblyAI](https://youtu.be/Kj0JtjAxxKA)
-
-<a href="https://youtu.be/NNq_XBVk30w"><img src="http://img.youtube.com/vi/NNq_XBVk30w/0.jpg" alt="How to build your own Speech-to-Text Transcription App in Python using AssemblyAI" title="How to build your own Speech-to-Text Transcription App in Python using AssemblyAI" width="500" /></a>
+##Multi-level-de-duplication app
 
 # 1. Obtain the AssemblyAI API key
 
@@ -40,7 +34,7 @@ conda activate transcriber
 ###  Download GitHub repo
 
 ```
-git clone https://github.com/dataprofessor/transcriber-app
+git clone https://github.com/mandyq1000/multi-level-de-duplication
 ```
 
 ###  Pip install libraries
