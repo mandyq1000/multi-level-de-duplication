@@ -14,22 +14,18 @@ Secondly, install prerequisite `pytube` library by typing the following:
 pip3 install pytube
 ```
 
-Thirdly, run the transcriber by typing the following (note that you can replace the URL with a YouTube video of your choice):
-```
-python3 transcriber.py -i "https://youtu.be/mkVjrB8g6mM"
-```
 
-# 3. Running transcriber as a Streamlit app
+# 3. Running Streamlit app
 To recreate this web app on your own computer, do the following.
 
 ### Create conda environment (Optional)
-Firstly, we will create a conda environment called *transcriber*
+Firstly, we will create a conda environment called *env_name*
 ```
-conda create -n transcriber python=3.7.9
+conda create -n env_name python=3.7.9
 ```
-Secondly, we will login to the *transcriber* environment
+Secondly, we will login to the *env_name* environment
 ```
-conda activate transcriber
+conda activate env_name
 ```
 
 ###  Download GitHub repo
